@@ -56,4 +56,4 @@ The tool prints a structured JSON summary to the console and saves it to `pr_sum
 
 The tool uses `@ai_function` with post-conditions to ensure the generated summary is always valid and complete. If the AI output fails validation (wrong risk level, missing file changes, no testing suggestions), the framework automatically retries with feedback.
 
-See the [companion article](article.md) for a full walkthrough.
+See the [companion article](https://blog.cloudbuckle.com/how-i-built-a-self-correcting-pr-review-summarizer-with-strands-ai-functions-52c4314b7340) for a full walkthrough.
