@@ -52,6 +52,18 @@ The tool prints a structured JSON summary to the console and saves it to `pr_sum
 - Testing suggestions
 - Suggested reviewers based on affected code areas
 
+## GitHub Action: Automated PR Comments
+
+This repo includes a GitHub Action that automatically posts a formatted summary as a comment on every pull request.
+
+To enable it, add these secrets to your repository under Settings > Secrets and variables > Actions:
+
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_DEFAULT_REGION`
+
+Once configured, every PR will get a comment with the summary, risk assessment, a testing checklist, and suggested reviewers.
+
 ## How It Works
 
 The tool uses `@ai_function` with post-conditions to ensure the generated summary is always valid and complete. If the AI output fails validation (wrong risk level, missing file changes, no testing suggestions), the framework automatically retries with feedback.
