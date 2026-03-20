@@ -1,6 +1,14 @@
 # PR Review Summarizer with Strands AI Functions
 
-A CLI tool that generates structured PR summaries from git diffs using [Strands AI Functions](https://strandsagents.com/docs/labs/ai-functions/).
+A self-correcting CLI tool and GitHub Action that generates structured, validated PR review summaries from git diffs using [Strands AI Functions](https://strandsagents.com/docs/labs/ai-functions/).
+
+## What It Does
+
+1. Reads a git diff and commit messages from your feature branch
+2. Feeds them to an AI agent that produces a structured summary
+3. Validates the output using post-conditions (risk level, file changes, testing suggestions)
+4. If validation fails, the agent retries with feedback until the output meets all conditions
+5. Optionally posts the summary as a formatted comment on your PR via GitHub Actions
 
 ## Prerequisites
 
@@ -10,6 +18,9 @@ A CLI tool that generates structured PR summaries from git diffs using [Strands 
 ## Setup
 
 ```bash
+git clone https://github.com/cloudbuckle-community/strands-ai-functions.git
+cd strands-ai-functions
+
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -17,23 +28,22 @@ pip install -r requirements.txt
 
 ## Try It Out
 
-The quickest way to test is to create a feature branch with some changes and run the summarizer against `main`.
+Create a feature branch with some changes and run the summarizer against `main`:
 
 ```bash
-# 1. Make sure you are in the project directory with the venv activated
 source venv/bin/activate
 
-# 2. Create a feature branch and make some changes
+# Create a feature branch and make some changes
 git checkout -b feature/my-test-branch
 # ... make some code changes and commit them ...
 
-# 3. Run the summarizer
+# Run the summarizer
 python -m src.main
 
-# 4. Review the output
+# Review the output
 cat pr_summary.json
 
-# 5. Switch back when done
+# Switch back when done
 git checkout main
 ```
 
@@ -62,10 +72,24 @@ To enable it, add these secrets to your repository under Settings > Secrets and 
 - `AWS_SECRET_ACCESS_KEY`
 - `AWS_DEFAULT_REGION`
 
-Once configured, every PR will get a comment with the summary, risk assessment, a testing checklist, and suggested reviewers.
+Once configured, every PR will get a comment with the summary, risk assessment, a testing checklist with checkboxes, and suggested reviewers.
 
 ## How It Works
 
 The tool uses `@ai_function` with post-conditions to ensure the generated summary is always valid and complete. If the AI output fails validation (wrong risk level, missing file changes, no testing suggestions), the framework automatically retries with feedback.
 
-See the [companion article](https://blog.cloudbuckle.com/how-i-built-a-self-correcting-pr-review-summarizer-with-strands-ai-functions-52c4314b7340) for a full walkthrough.
+Key components:
+
+- `src/models.py` - Pydantic models defining the PR summary contract
+- `src/pr_reviewer.py` - AI function with post-conditions for validation
+- `src/main.py` - CLI entry point
+- `.github/workflows/pr-summary.yml` - GitHub Action for automated PR comments
+
+## Articles
+
+- [Part 1: How I Built a Self-Correcting PR Review Summarizer with Strands AI Functions](https://medium.com/@cloudbuckle/how-i-built-a-self-correcting-pr-review-summarizer-with-strands-ai-functions-52c4314b7340)
+- [Part 2: I Automated PR Reviews So My Team Never Has to Write Another Summary Again](https://medium.com/@cloudbuckle/i-automated-pr-reviews-so-my-team-never-has-to-write-another-summary-again-1abb64a9b9f8)
+
+## License
+
+[MIT](LICENSE)
