@@ -87,8 +87,8 @@ Key components:
 
 ## Articles
 
-- [Part 1: How I Built a Self-Correcting PR Review Summarizer with Strands AI Functions](https://medium.com/@cloudbuckle/how-i-built-a-self-correcting-pr-review-summarizer-with-strands-ai-functions-52c4314b7340)
-- [Part 2: I Automated PR Reviews So My Team Never Has to Write Another Summary Again](https://medium.com/@cloudbuckle/i-automated-pr-reviews-so-my-team-never-has-to-write-another-summary-again-1abb64a9b9f8)
+- [Part 1: How I Built a Self-Correcting PR Review Summarizer with Strands AI Functions](https://blog.cloudbuckle.com/how-i-built-a-self-correcting-pr-review-summarizer-with-strands-ai-functions-52c4314b7340)
+- [Part 2: I Automated PR Reviews So My Team Never Has to Write Another Summary Again](https://blog.cloudbuckle.com/i-automated-pr-reviews-so-my-team-never-has-to-write-another-summary-again-1abb64a9b9f8)
 
 ## License
 
